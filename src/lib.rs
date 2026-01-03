@@ -1,8 +1,6 @@
-#![deny(clippy::all)]
+extern crate napi_derive;
 
-use napi_derive::napi;
+mod processor;
 
-#[napi]
-pub fn plus_100(input: u32) -> u32 {
-  input + 100
-}
+pub use processor::image_processor::*;
+pub use processor::receipt::*;

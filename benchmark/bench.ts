@@ -1,21 +1,96 @@
-import { Bench } from 'tinybench'
+import { Bench } from 'tinybench';
+import { processImageRust, generateReceipt } from '../index.js';
+import { readFileSync, existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
+import winston from 'winston';
 
-import { plus100 } from '../index.js'
+export const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp({ format: 'HH:mm:ss' }),
+    winston.format.colorize(),
+    winston.format.printf(({ timestamp, level, message }) => {
+      return `[${timestamp}] ${level}: ${message}`;
+    })
+  ),
+  transports: [new winston.transports.Console()]
+});
 
-function add(a: number) {
-  return a + 100
+const b = new Bench();
+
+const getFilePath = (fileName: string): string => {
+  const tempPath = join(process.cwd(), 'temp', fileName);
+  const assetsPath = join(process.cwd(), 'assets', fileName);
+
+  if (existsSync(tempPath)) {
+    logger.info(`Using cached asset from /temp: ${fileName}`);
+    return tempPath;
+  }
+
+  if (existsSync(assetsPath)) {
+    logger.info(`Using default asset from /assets: ${fileName}`);
+    return assetsPath;
+  }
+
+  logger.error(`Asset NOT FOUND: ${fileName}. Program might crash if accessed.`);
+  return assetsPath;
+};
+
+const outputDir = join(process.cwd(), 'temp-output');
+if (!existsSync(outputDir)) {
+  mkdirSync(outputDir);
+  logger.info(`Created output directory: ${outputDir}`);
 }
 
-const b = new Bench()
+const imgPath = getFilePath('test-image.jpg');
+const bgPath = getFilePath('bg-receipt.png');
+const fontPath = getFilePath('font.ttf');
+const outReceiptPath = join(outputDir, 'bench-result.png');
 
-b.add('Native a + 100', () => {
-  plus100(10)
-})
+let uint8Array: Uint8Array;
 
-b.add('JavaScript a + 100', () => {
-  add(10)
-})
+try {
+  const imgBuffer = readFileSync(imgPath);
+  uint8Array = new Uint8Array(imgBuffer);
+  logger.info('Image buffer loaded successfully.');
+} catch (e: any) {
+  logger.error(`FAILED TO READ IMAGE: ${e.message}`);
+  process.exit(1);
+}
 
-await b.run()
 
-console.table(b.table())
+b.add('Rust: Image Processing (Resize 800x800)', () => {
+  processImageRust(uint8Array, 800, 800, true);
+});
+
+b.add('Rust: Generate Receipt (Draw Text & Save)', () => {
+  try {
+    generateReceipt(
+      bgPath,
+      fontPath,
+      outReceiptPath,
+      "HOMESHOP",
+      "Rp 750.000"
+    );
+  } catch (err: any) {
+    logger.error(`Receipt Generation Failed: ${err.message}`);
+  }
+});
+
+b.add('JS: Pure Buffer Manipulation (XOR Loop)', () => {
+  const temp = new Uint8Array(uint8Array.length);
+  for (let i = 0; i < 1000; i++) {
+    temp[i] = uint8Array[i] ^ 0xFF;
+  }
+});
+
+(async () => {
+  logger.info('Menjalankan Benchmark Native Rust Engine...');
+
+  await b.run();
+
+  logger.info('Benchmark Selesai.');
+  console.table(b.table());
+
+  logger.info(`Preview hasil bisa dilihat di: ${outReceiptPath}`);
+})();

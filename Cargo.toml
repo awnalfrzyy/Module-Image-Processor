@@ -2,20 +2,22 @@
 [package]
 authors = ["LongYinan <lynweklm@gmail.com>"]
 edition = "2021"
-name = "module_image_processor"
+name    = "module_image_processor"
 version = "0.1.0"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-image = "0.25.9"
-napi = "3.0.0"
+image       = "0.24"
+imageproc   = "0.23"
+napi        = "3.0.0"
 napi-derive = "3.0.0"
+rusttype    = "0.9"
 
 [build-dependencies]
 napi-build = "2"
 
 [profile.release]
-lto = true
+lto   = true
 strip = "symbols"
