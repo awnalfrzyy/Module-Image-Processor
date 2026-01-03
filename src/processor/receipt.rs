@@ -12,8 +12,8 @@ pub fn generate_receipt(
   store_name: String,
   total_price: String,
 ) -> String {
-  let mut img = image::open(&Path::new(&bg_path)).expect("Gagal load background");
-  let font_data = std::fs::read(font_path).expect("Gagal load font");
+  let mut img = image::open(&Path::new(&bg_path)).expect("Failed to load background");
+  let font_data = std::fs::read(font_path).expect("Failed to load font");
   let font = Font::try_from_vec(font_data).expect("Error parsing font");
   let color = Rgba([0u8, 0u8, 0u8, 255u8]);
   let scale = Scale { x: 40.0, y: 40.0 };
@@ -30,6 +30,6 @@ pub fn generate_receipt(
   );
   img
     .save(&Path::new(&output_path))
-    .expect("Gagal simpan struk");
-  format!("Struk berhasil dibuat di {}", output_path)
+    .expect("Failed to save receipt");
+  format!("Receipt was successfully created in {}", output_path)
 }
