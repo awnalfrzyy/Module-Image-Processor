@@ -12,7 +12,7 @@ pub fn generate_receipt(
   store_name: String,
   total_price: String,
 ) -> String {
-  let mut img = image::open(&Path::new(&bg_path)).expect("Failed to load background");
+  let mut img = image::open(Path::new(&bg_path)).expect("Failed to load background");
   let font_data = std::fs::read(font_path).expect("Failed to load font");
   let font = Font::try_from_vec(font_data).expect("Error parsing font");
   let color = Rgba([0u8, 0u8, 0u8, 255u8]);
@@ -29,7 +29,7 @@ pub fn generate_receipt(
     &format!("Total:{}", total_price),
   );
   img
-    .save(&Path::new(&output_path))
+    .save(Path::new(&output_path))
     .expect("Failed to save receipt");
   format!("Receipt was successfully created in {}", output_path)
 }
