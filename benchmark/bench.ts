@@ -42,9 +42,9 @@ if (!existsSync(outputDir)) {
   logger.info(`Created output directory: ${outputDir}`)
 }
 
-const imgPath = getFilePath('test-image.jpg')
-const bgPath = getFilePath('bg-receipt.png')
-const fontPath = getFilePath('font.ttf')
+const imgPath = getFilePath('../assets/Frame.png')
+const bgPath = getFilePath('../assets/Frame.png')
+const fontPath = getFilePath('../assets/Rubik-Regular.ttf')
 const outReceiptPath = join(outputDir, 'bench-result.png')
 
 let uint8Array: Uint8Array
@@ -77,13 +77,13 @@ b.add('JS: Pure Buffer Manipulation (XOR Loop)', () => {
   }
 })
 
-;(async () => {
-  logger.info('Running Benchmark Native Rust Engine...')
+  ; (async () => {
+    logger.info('Running Benchmark Native Rust Engine...')
 
-  await b.run()
+    await b.run()
 
-  logger.info('Benchmark Done.')
-  console.table(b.table())
+    logger.info('Benchmark Done.')
+    console.table(b.table())
 
-  logger.info(`Preview of the results can be seen at: ${outReceiptPath}`)
-})()
+    logger.info(`Preview of the results can be seen at: ${outReceiptPath}`)
+  })()
