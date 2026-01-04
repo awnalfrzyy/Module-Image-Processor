@@ -112,11 +112,11 @@ jobs:
 
       - name: Publish
         run: |
-          # JURUS TERAKHIR: Hapus script yang bikin error langsung dari filenya di CI
+          
           npm pkg delete scripts.prepare
           npm pkg delete scripts.prepublishOnly
           
-          # Publish tanpa ampun
+          
           npm publish --access public --no-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
