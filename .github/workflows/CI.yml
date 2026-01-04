@@ -107,9 +107,9 @@ jobs:
           ls -R
 
       - name: Publish
-        run: 
+        run: |
           npx napi prepublish -t npm
-          npx publish --access public
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
