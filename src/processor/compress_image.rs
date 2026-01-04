@@ -4,7 +4,7 @@ use napi_derive::napi;
 use std::io::Cursor;
 
 #[napi]
-pub fn process_image_rust(buffer: Uint8Array, width: u32, height: u32, grayscale: bool) -> Buffer {
+pub fn compress_image(buffer: Uint8Array, width: u32, height: u32, grayscale: bool) -> Buffer {
   let img = ImageReader::new(Cursor::new(buffer.as_ref()))
     .with_guessed_format()
     .unwrap()

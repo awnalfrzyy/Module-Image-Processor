@@ -1,2 +1,2 @@
-pub mod image_processor;
+pub mod compress_image;
 pub mod receipt;

@@ -1,5 +1,5 @@
 import { Bench } from 'tinybench'
-import { processImageRust, generateReceipt } from '../index.js'
+import { compressImage, generateReceipt } from '../index.js'
 import { readFileSync, existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
 import winston from 'winston'
@@ -59,12 +59,37 @@ try {
 }
 
 b.add('Rust: Image Processing (Resize 800x800)', () => {
-  processImageRust(uint8Array, 800, 800, true)
+  compressImage(uint8Array, 800, 800, true)
 })
 
-b.add('Rust: Generate Receipt (Draw Text & Save)', () => {
+b.add('Rust: Generate Receipt (Full Struk)', () => {
   try {
-    generateReceipt(bgPath, fontPath, outReceiptPath, 'xxxxxx', 'IDR. xxxxx')
+    generateReceipt(
+      bgPath,
+      fontPath,
+      outReceiptPath,
+      'Rocket Store',
+      'Jl. Debian No. 10, Linux City',
+      [
+        'NEW BALANCE 509 Unisex Sneakers : 1.359.200',
+        'ADIDAS handball spezial shoes : 1.710.000',
+        'PUMA Speedcat OG Sneakers Unisex : 1.899.000',
+        'Onitsuka Tiger MEXICO 66 : 2.600.000',
+        'NEW BALANCE 509 Unisex Sneakers : 1.359.200',
+        'ADIDAS handball spezial shoes : 1.710.000',
+        'PUMA Speedcat OG Sneakers Unisex : 1.899.000',
+        'Onitsuka Tiger MEXICO 66 : 2.600.000',
+        'NEW BALANCE 509 Unisex Sneakers : 1.359.200',
+        'ADIDAS handball spezial shoes : 1.710.000',
+        'PUMA Speedcat OG Sneakers Unisex : 1.899.000',
+        'Onitsuka Tiger MEXICO 66 : 2.600.000',
+        'NEW BALANCE 509 Unisex Sneakers : 1.359.200',
+        'ADIDAS handball spezial shoes : 1.710.000',
+        'PUMA Speedcat OG Sneakers Unisex : 1.899.000',
+        'Onitsuka Tiger MEXICO 66 : 2.600.000',
+      ],
+      'IDR. 1.630.000'
+    )
   } catch (err: any) {
     logger.error(`Receipt Generation Failed: ${err.message}`)
   }
