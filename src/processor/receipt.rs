@@ -49,7 +49,7 @@ pub fn generate_receipt(
     &store_address,
   );
 
-  // 3. ===== ITEMS =====
+  // ===== ITEMS =====
   let scale_item = Scale { x: 42.0, y: 42.0 };
   let mut current_y = 280;
   let max_text_width = (img_width as i32) - 300;
@@ -116,13 +116,13 @@ pub fn generate_receipt(
     current_y += 85;
   }
 
-  // 4. ===== GARIS PEMBATAS =====
+  // ===== GARIS PEMBATAS =====
   let line_y = current_y + 20;
   for x in 50..(img_width - 50) {
     img.put_pixel(x, line_y as u32, black);
   }
 
-  // 5. ===== TOTAL =====
+  // ===== TOTAL =====
   let scale_total = Scale { x: 52.0, y: 52.0 };
   let total_y = line_y + 40;
   draw_text_mut(&mut img, black, 60, total_y, scale_total, &font, "TOTAL");
