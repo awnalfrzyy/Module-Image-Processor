@@ -108,6 +108,8 @@ jobs:
           cp artifacts/bindings-x86_64-apple-darwin/*.node npm/darwin-x64/ || true
           cp artifacts/bindings-x86_64-unknown-linux-gnu/*.node npm/linux-x64-gnu/ || true
           cp artifacts/bindings-aarch64-apple-darwin/*.node npm/darwin-arm64/ || true
+          find artifacts/ -name "*.node" -exec cp {} . \;
+          ls -lh *.node
           ls -R npm/
 
       - name: Publish
