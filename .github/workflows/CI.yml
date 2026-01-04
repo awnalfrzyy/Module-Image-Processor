@@ -115,7 +115,7 @@ jobs:
 
       - name: Publish
         run: |
-          npm publish --access public --ignore-scripts
+          npm publish --access public --no-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
