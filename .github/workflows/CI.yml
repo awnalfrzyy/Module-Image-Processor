@@ -115,7 +115,7 @@ jobs:
 
       - name: Publish
         run: |
-          napi prepublish -t npm --skip-gh-release
+          napi prepublish --tag-style npm
           npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
