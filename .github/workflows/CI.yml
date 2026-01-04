@@ -106,9 +106,12 @@ jobs:
           mv artifacts/bindings-*/*.node .
           ls -R
 
+      - name: Install NAPI CLI
+        run: npm install -g @napi-rs/cli
+
       - name: Publish
         run: |
-          npx napi prepublish -t npm
+          napi prepublish -t npm
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
