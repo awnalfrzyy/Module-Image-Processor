@@ -117,6 +117,7 @@ jobs:
           
           npm pkg delete scripts.prepare
           npm pkg delete scripts.prepublishOnly
+          npm pkg delete scripts.preversion
           
           
           npm publish --access public --no-scripts
