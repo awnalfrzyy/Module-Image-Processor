@@ -93,7 +93,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24.12.0
           registry-url: https://registry.npmjs.org/
 
       - name: Download all artifacts
@@ -114,11 +114,10 @@ jobs:
 
       - name: Publish
         run: |
-          
           npm pkg delete scripts.prepare
           npm pkg delete scripts.prepublishOnly
           npm pkg delete scripts.preversion
-          
+          npm pkg delete scripts.postinstall
           
           npm publish --access public --no-scripts
         env:
