@@ -1,6 +1,6 @@
 
 [package]
-authors = ["LongYinan <lynweklm@gmail.com>"]
+authors = ["Awnalfrzyy <aswinalfarizi04@gmail.com>"]
 edition = "2021"
 name    = "module_image_processor"
 version = "0.1.0"

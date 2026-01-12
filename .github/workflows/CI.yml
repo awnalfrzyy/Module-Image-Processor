@@ -1,7 +1,7 @@
 name: CI
 env:
   DEBUG: napi:*
-  APP_NAME: module-image-processor
+  APP_NAME: MODIPOS
   MACOSX_DEPLOYMENT_TARGET: '10.13'
   CARGO_INCREMENTAL: '1'
 
@@ -9,7 +9,7 @@ on:
   push:
     branches:
       - main
-    tags: 
+    tags:
       - 'v*'
     paths-ignore:
       - '**/*.md'
@@ -38,14 +38,14 @@ jobs:
 
     name: build-${{ matrix.settings.target }}
     runs-on: ${{ matrix.settings.host }}
-    
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 24.12.0
+          node-version: 22
           cache: npm
 
       - name: Install Rust
@@ -85,7 +85,7 @@ jobs:
   publish:
     name: Publish to NPM
     runs-on: ubuntu-latest
-    needs: [build] 
+    needs: [build]
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v4
@@ -118,9 +118,9 @@ jobs:
           npm pkg delete scripts.prepublishOnly
           npm pkg delete scripts.preversion
           npm pkg delete scripts.postinstall
-          
+
           npm publish --access public --no-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NAPI_RS_SKIP_GH_RELEASE: true
+          NAPI_RS_SKIP_GH_RELEASE: false

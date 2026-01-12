@@ -1,11 +1,11 @@
 {
   "name": "@awinalfarizi/module-image-processor",
-  "version": "2.0.0",
+  "version": "1.0.1",
   "description": "Template project for writing node package with napi-rs",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/awnalfrzyy/Module-Image-Processor.git"
+    "url": "https://github.com/awnalfrzyy/Module-Image-Processor.git"
   },
   "license": "MIT",
   "browser": "browser.js",
@@ -21,7 +21,8 @@
     "index.d.ts",
     "index.js",
     "browser.js",
-    "*.node"
+    "*.node",
+    "npm/**/*"
   ],
   "napi": {
     "binaryName": "module-image-processor",
@@ -33,7 +34,7 @@
     ]
   },
   "engines": {
-    "node": ">= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0"
+    "node": ">=22.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
@@ -61,12 +62,12 @@
     "@oxc-node/core": "^0.0.35",
     "@taplo/cli": "^0.7.0",
     "@tybys/wasm-util": "^0.10.0",
-    "@types/node": "^25.0.3",
+    "@types/node": "^22.0.0",
     "ava": "^6.4.1",
     "chalk": "^5.6.2",
     "husky": "^9.1.7",
     "is-ci": "^3.0.1",
-    "lint-staged": "^16.1.6",
+    "lint-staged": "^16.2.7",
     "npm-run-all2": "^8.0.4",
     "oxlint": "^1.14.0",
     "prettier": "^3.6.2",
@@ -106,5 +107,5 @@
     "singleQuote": true,
     "arrowParens": "always"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "npm@22.0.0"
 }

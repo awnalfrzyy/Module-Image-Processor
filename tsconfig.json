@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
     "module": "CommonJS",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
