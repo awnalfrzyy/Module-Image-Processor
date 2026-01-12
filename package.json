@@ -45,6 +45,7 @@
     "bench": "node --import @oxc-node/core/register benchmark/bench.ts",
     "build": "napi build --release",
     "build:debug": "napi build --platform",
+    "universal": "napi universal",
     "format": "run-p format:prettier format:rs format:toml",
     "format:prettier": "prettier . -w",
     "format:toml": "taplo format",
@@ -74,6 +75,12 @@
     "tinybench": "^6.0.0",
     "typescript": "^5.9.2",
     "winston": "^3.19.0"
+  },
+  "optionalDependencies": {
+    "@awinalfarizi/module-image-processor-win32-x64-msvc": "*",
+    "@awinalfarizi/module-image-processor-darwin-x64": "*",
+    "@awinalfarizi/module-image-processor-linux-x64-gnu": "*",
+    "@awinalfarizi/module-image-processor-darwin-arm64": "*"
   },
   "lint-staged": {
     "*.@(js|ts|tsx)": [

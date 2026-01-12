@@ -108,9 +108,11 @@ jobs:
           cp artifacts/bindings-x86_64-apple-darwin/*.node npm/darwin-x64/ || true
           cp artifacts/bindings-x86_64-unknown-linux-gnu/*.node npm/linux-x64-gnu/ || true
           cp artifacts/bindings-aarch64-apple-darwin/*.node npm/darwin-arm64/ || true
-          find artifacts/ -name "*.node" -exec cp {} . \;
+          cp artifacts/bindings-x86_64-unknown-linux-gnu/*.node ./module-image-processor.linux-x64-gnu.node || true
+          cp artifacts/bindings-x86_64-pc-windows-msvc/*.node ./module-image-processor.win32-x64-msvc.node || true
+          cp artifacts/bindings-x86_64-apple-darwin/*.node ./module-image-processor.darwin-x64.node || true
+          cp artifacts/bindings-aarch64-apple-darwin/*.node ./module-image-processor.darwin-arm64.node || true
           ls -lh *.node
-          ls -R npm/
 
       - name: Publish
         run: |
