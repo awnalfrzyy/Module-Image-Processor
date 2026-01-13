@@ -23,9 +23,9 @@ pub fn generate_receipt(
   let font = Font::try_from_vec(font_data)
     .ok_or_else(|| napi::Error::from_reason("Error parsing font data"))?;
 
-  let black = Rgba([0, 0, 0, 255]);
+  let black = Rgba([0, 0, 0, 127]);
 
-  let scale_title = Scale { x: 80.0, y: 80.0 };
+  let scale_title = Scale { x: 120.0, y: 120.0 };
   let (tw, _) = text_size(scale_title, &font, &store_name);
   draw_text_mut(
     &mut img,
@@ -37,7 +37,7 @@ pub fn generate_receipt(
     &store_name,
   );
 
-  let scale_address = Scale { x: 28.0, y: 28.0 };
+  let scale_address = Scale { x: 48.0, y: 48.0 };
   let (aw, _) = text_size(scale_address, &font, &store_address);
   draw_text_mut(
     &mut img,
@@ -50,11 +50,11 @@ pub fn generate_receipt(
   );
 
   // ===== ITEMS =====
-  let scale_item = Scale { x: 42.0, y: 42.0 };
+  let scale_item = Scale { x: 62.0, y: 62.0 };
   let mut current_y = 280;
-  let max_text_width = (img_width as i32) - 300;
+  let max_text_width = (img_width as i32) - 600;
 
-  for item in items.iter().take(8) {
+  for item in items.iter().take(12) {
     let parts: Vec<&str> = item.split(':').collect();
 
     if parts.len() == 2 {
@@ -77,7 +77,7 @@ pub fn generate_receipt(
           draw_text_mut(
             &mut img,
             black,
-            60,
+            100,
             current_y,
             scale_item,
             &font,
@@ -92,7 +92,7 @@ pub fn generate_receipt(
       draw_text_mut(
         &mut img,
         black,
-        60,
+        100,
         current_y,
         scale_item,
         &font,
@@ -123,7 +123,7 @@ pub fn generate_receipt(
   }
 
   // ===== TOTAL =====
-  let scale_total = Scale { x: 52.0, y: 52.0 };
+  let scale_total = Scale { x: 62.0, y: 62.0 };
   let total_y = line_y + 40;
   draw_text_mut(&mut img, black, 60, total_y, scale_total, &font, "TOTAL");
 

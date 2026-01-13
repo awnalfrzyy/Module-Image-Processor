@@ -44,7 +44,7 @@ if (!existsSync(outputDir)) {
 
 const imgPath = getFilePath('../assets/Frame.png')
 const bgPath = getFilePath('../assets/Frame.png')
-const fontPath = getFilePath('../assets/Rubik-Regular.ttf')
+const fontPath = getFilePath('../assets/SpaceMono-Regular.ttf')
 const outReceiptPath = join(outputDir, 'bench-result.png')
 
 let uint8Array: Uint8Array
@@ -68,8 +68,8 @@ b.add('Rust: Generate Receipt (Full Struk)', () => {
       bgPath,
       fontPath,
       outReceiptPath,
-      'Rocket Store',
-      'Jl. Debian No. 10, Linux City',
+      'HOMESHOP',
+      'Jl.Sukamaju No. 10, Jakarta Kota',
       [
         'NEW BALANCE 509 Unisex Sneakers : 1.359.200',
         'ADIDAS handball spezial shoes : 1.710.000',
@@ -88,7 +88,7 @@ b.add('Rust: Generate Receipt (Full Struk)', () => {
         'PUMA Speedcat OG Sneakers Unisex : 1.899.000',
         'Onitsuka Tiger MEXICO 66 : 2.600.000',
       ],
-      'IDR. 1.630.000'
+      'IDR. 1.630.000',
     )
   } catch (err: any) {
     logger.error(`Receipt Generation Failed: ${err.message}`)
@@ -101,14 +101,13 @@ b.add('JS: Pure Buffer Manipulation (XOR Loop)', () => {
     temp[i] = uint8Array[i] ^ 0xff
   }
 })
+;(async () => {
+  logger.info('Running Benchmark Native Rust Engine...')
 
-  ; (async () => {
-    logger.info('Running Benchmark Native Rust Engine...')
+  await b.run()
 
-    await b.run()
+  logger.info('Benchmark Done.')
+  console.table(b.table())
 
-    logger.info('Benchmark Done.')
-    console.table(b.table())
-
-    logger.info(`Preview of the results can be seen at: ${outReceiptPath}`)
-  })()
+  logger.info(`Preview of the results can be seen at: ${outReceiptPath}`)
+})()
